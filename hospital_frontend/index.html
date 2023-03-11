@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hospital</title>
     <link href="css/index.css" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
 </head>
 <body>
     <div class="header">
@@ -15,16 +16,65 @@
             <a>Careers</a>
             <a>Contact Us</a>
             <a>About Us</a>
-            <button type="button">Login/Sign Up</button>
+            <button type="button" onclick="openForm()">Login/Sign Up</button>
         </nav>
     </div>
 
-    <div class="container">
+    <div id="container" class="container">
         <div class="greeting">
             <h1>Stay Healthy!</h1>
             <p>Login or sign up to get started</p>
         </div>
     </div>
-    <script src="index.js"></script>
+
+    <form onsubmit="return false">
+        <div class="registerForm" id="registerPopup">
+            <img class="xclose" onclick="closeForm()" src="images/x-close.png">
+            <h2>Register</h2>
+            <div class="choose-type">
+                <button id="patient-signup" class="neutral highlighted" type="button">I'm a patient</button>
+                <button id="work-signup" class="neutral" type="button">I'm an employee/admin</button>
+            </div>
+            <div class="choose-work hidden" id="choose-work">
+                <label>
+                    <input id="employee-radio" type="radio" name="gender" value="employee" checked>Employee
+                </label>
+                <label>
+                    <input id="admin-radio" type="radio" name="gender" value="admin">Admin
+                </label>
+            </div>
+            <input id="admin-code" class="hidden" placeholder="Admin code (Use 'ADMIN' for testing)" name="admin_code">
+            <input id="employee-code" class="hidden" placeholder="Employee code (Use 'EMPLOYEE' for testing)" name="admin_code">
+            <input id="name" placeholder="Full Name" name="full_name">
+            <input id="ssn" class="hidden" placeholder="SSN" name="ssn">
+            <input id="date-joined" class="hidden" placeholder="Date Joined (DD/MM/YY)" name="date_joined">
+            <select name="position" id="position" class="position hidden">
+                <option value="Head of Department">Head of Department</option>
+                <option value="Manager">Manager</option>
+                <option value="Supervisor">Supervisor</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+            </select>
+            <input id="email-signup" placeholder="Email" name="email">
+            <input id="password-signup" type="password" placeholder="Password" name="password">
+            <div class="validation" id="validation">
+                <p id="lowercase" class="error">A <b>lowercase</b> letter</p>
+                <p id="uppercase" class="error">An <b>uppercase</b> letter</p>
+                <p id="special" class="error">A <b>special character</b></p>
+                <p id="number" class="error">A <b>number</b></p>
+                <p id="length" class="error"><b>8 characters</b> minimum</p>
+            </div>
+            <input id="confirmPassword" type="password" placeholder="Confirm Password">
+            <div class="choose-gender">
+                <button class="neutral highlighted" type="button" id="male"><img src="images/male.png">Male</button>
+                <button class="neutral" type="button" id="female"><img src="images/female.png">Female</button>
+            </div>
+            <input id="dob" placeholder="Date of Birth (DD/MM/YY)" name="dob">
+            <div class="errormessage" id="errormessage"></div>
+            <button id="submit-signup" onclick="submitForm()">Submit</button>
+        </div >
+    </form>
+    <script src="js/index.js"></script>
 </body>
 </html>

@@ -96,3 +96,199 @@ nav {
     font-size: 4rem;
     margin-bottom: 1rem;
 }
+
+.registerForm {
+    width: 30%;
+    background-color: rgb(83, 227, 249);
+    padding: 3rem;
+    position: absolute;
+    box-sizing: border-box;
+    top: 40%;
+    left: 50%;
+    border-radius: 1rem;
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.containerBlur {
+    filter: blur(10px);
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.openForm {
+    top: 50%;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.3s ease-in-out;
+}
+
+.errormessage {
+    color: rgb(255, 83, 83);
+}
+
+.registerForm h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.registerForm input {
+    border: none;
+    background-color: rgb(185, 240, 255);
+    margin: 0.5rem 0rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+.registerForm input:focus {
+    outline: none;    
+    background-color: rgb(135, 229, 255);
+    transition: all 0.2s;
+}
+
+
+.xclose {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 5%;
+    cursor: pointer;
+}
+
+.validation {
+    max-height: 0px;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.3s;
+}
+
+.validationOpened {
+    max-height: 10rem;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.correct {
+    color: green;
+    padding-left: 1rem;
+    transition: all 0.3s;
+  }
+  
+.correct:before {
+    position: relative;
+    left: -1rem;
+    content: "✔";
+    transition: all 0.3s;
+}
+
+.error {
+    color: red;
+    padding-left: 2rem;
+    transition: all 0.3s;
+}
+  
+.error:before {
+    position: relative;
+    left: -2rem;
+    content: "✖";
+    transition: all 0.3s;
+}
+
+.choose-type {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: rgb(23, 205, 255);
+    border-radius: 0.5rem;
+}
+
+.choose-type button {
+    border: none;
+    padding: 0.5rem;
+    width: 48%;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.neutral {
+    background-color: rgb(0, 158, 202);
+}
+
+.highlighted {
+    background-color: rgb(165, 235, 255);
+}
+
+#submit {
+    background-color: rgb(2, 152, 194);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.choose-gender {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: rgb(23, 205, 255);
+    border-radius: 0.5rem;
+    align-items: center;
+}
+
+.choose-gender img {
+    width: 2rem;
+    margin-right: 1rem;
+}
+.choose-gender button {
+    border: none;
+    padding: 0.5rem;
+    width: 48%;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.choose-work {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.choose-work input {
+    margin-right: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.position {
+    border: none;
+    background-color: rgb(185, 240, 255);
+    margin: 0.5rem 0rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
