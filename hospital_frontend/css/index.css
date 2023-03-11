@@ -68,8 +68,31 @@ nav {
 
 .header button {
     border: none;
-    background-color: rgb(68, 152, 255);
+    background-color: rgb(68, 171, 255);
     border-radius: 0.5rem;
     padding: 1rem;
     font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.header button:hover {
+    background-color: rgb(85, 195, 255);
+    transition: all 0.3s;
+}
+
+.container {
+    background: url(../images/background.jpg) center center / cover;
+    height: 100vh;
+    position: relative;
+}
+
+.greeting {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+}
+
+.greeting h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
 }
