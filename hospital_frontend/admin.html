@@ -29,12 +29,39 @@
                 <select id="hospitals"></select>
                 <button type="button" onclick="assignPatient()">Assign</button>
         </div>
+        <div class="assign-employees">
+            <select id="employees-select"></select>
+            <select id="hospitals-select"></select>
+            <button type="button" onclick="assignEmployee()">Assign</button>
+        </div>
+        <div class="pending-services">
+            <h3>Patient Services</h3>
+            <table id="services">
+                <th>Requested by</th>
+                <th>Requested from</th>
+                <th>Description</th>
+                <th>Cost</th>
+                <th>Department</th>
+                <th>Approved</th>
+            </table>
+        </div>
         <div class="active-users">
             <table id="patients-hospitals">
                 <th>Patient</th>
                 <th>Hospital</th>
                 <th>Date Joined</th>
                 <th>Date Left</th>
+            </table>
+        </div>
+
+        <div class="stats">
+            <table id="gender-employees">
+                <th>Number of female employees</th>
+                <th>Number of male employees</th>
+            </table>
+            <table id="patients-per-hospital">
+                <th>Hospital name</th>
+                <th>N of patients</th>
             </table>
         </div>
     </div>

@@ -109,6 +109,37 @@ nav {
     background-color: rgb(85, 195, 255);
 }
 
+.assign-employees {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin: 2rem auto;
+    background-color: rgb(85, 195, 255);
+}
+
+.assign-employees select {
+    border: none;
+    background-color: rgb(185, 240, 255);
+    margin: 0.5rem 0rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    width: 40%;
+}
+
+.assign-employees button {
+    border: none;
+    background-color: rgb(68, 171, 255);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
 .assign-patients button {
     border: none;
     background-color: rgb(68, 171, 255);
@@ -121,16 +152,25 @@ nav {
 }
 
 table {
-    border: 0.2rem solid black;
+    border: 0.1rem solid black;
     padding: 1rem;
     margin: auto;
     background-color: rgb(134, 201, 255);
+    margin-top: 1rem;
+    border-radius: 0.5rem;
 }
 
 th {
     padding: 1rem 2rem;
+    font-weight: bold;
 }
 
 td {
     padding: 1rem 2rem;
+}
+
+.pending-services h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
 }

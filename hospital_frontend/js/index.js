@@ -22,6 +22,8 @@ const submit_signup = document.getElementById('submit-signup')
 const hospital = document.getElementById('hospital')
 const error = document.getElementById('errormessage')
 const login_button = document.getElementById('login-button')
+const login_email = document.getElementById('email-login')
+const login_password = document.getElementById('password-login')
 const url = 'http://localhost/hospital/hospital_backend'
 const jwt = localStorage.getItem('jwt')
 let gender = 'male'
@@ -259,6 +261,31 @@ function openLogin() {
     login_form.classList.remove('openForm');
     login_form.classList.add('openForm')
     container.classList.add('containerBlur')
+}
+
+function submitLogin() {
+    let login_data = new FormData();
+        login_data.append('email', login_email.value)
+        login_data.append('password', login_password.value)
+    axios({
+        "method": "post",
+        "url": `${url}/login.php`,
+        "data": login_data
+      }).then((result) => {
+        if(result.data.status="logged in") {
+            console.log(result)
+            localStorage.setItem('jwt', result.data.jwt);
+            if(result.data.type == 'employee') {
+                window.location.href="employee.html"
+            } else if (result.data.type == 'patient') {
+                window.location.href="patient.html"
+            } else if (result.data.type == 'admin') {
+                window.location.href="admin.html"
+            }
+        }
+      }).catch((err) => {
+        console.error(err)
+      });
 }
 
 function openRegister() {
