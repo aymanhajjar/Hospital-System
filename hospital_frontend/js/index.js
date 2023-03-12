@@ -213,7 +213,7 @@ function validateForm() {
         date_of_birth.classList.add('errorField')
         return false
     }
-    if(employee) {
+    if(employee && work_type=='employee') {
         if(employee_code.value.length == 0 && admin_code.value.length == 0) {
             error.innerHTML = 'Please a valid code!'
             employee_code.classList.add('errorField')
@@ -228,6 +228,14 @@ function validateForm() {
         if(date_joined.value.length == 0) {
             error.innerHTML = "Please enter a valid join date!"
             date_joined.classList.add('errorField')
+            return false
+        }
+    }
+    if(employee && work_type=='admin') {
+        if(employee_code.value.length == 0 && admin_code.value.length == 0) {
+            error.innerHTML = 'Please a valid code!'
+            employee_code.classList.add('errorField')
+            admin_code.classList.add('errorField')
             return false
         }
     }
