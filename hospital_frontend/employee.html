@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <link href="css/employee.css" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>HEALTH CARE</h1>
+        <nav>
+            <a>Home</a>
+            <a>Careers</a>
+            <a>Contact Us</a>
+            <a>About Us</a>
+            <button  id="login-button" type="button" onclick="logOut()">Log Out</button>
+        </nav>
+    </div>
+
+    <div id="denied" class="denied">
+        <h1>ACCESS DENIED!</h1>
+    </div>
+    <div id="container" class="container">
+        <form onsubmit="return false">
+            <div class="registerForm" id="loginPopup">
+                <h2>Edit Employee Info</h2>
+                <input id="ssn" placeholder="SSN" name="ssn">
+                <input id="date-joined" placeholder="Date Joined" name="date-joined">
+                <select name="position" id="position" class="position">
+                    <option value="Head of Department">Head of Department</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Supervisor">Supervisor</option>
+                    <option value="Accountant">Accountant</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Nurse">Nurse</option>
+                </select>
+                <div class="errormessage" id="errormessage"></div>
+                <button onclick="updateInfo()">Submit</button>
+            </div >
+        </form>
+
+        <div class="services">
+            <h3>Patient Services</h3>
+            <table id="services">
+                <th>Requested by</th>
+                <th>Requested from</th>
+                <th>Description</th>
+                <th>Cost</th>
+                <th>Department</th>
+                <th>Approved</th>
+            </table>
+        </div>
+
+        </div>
+
+    <script src="js/employee.js"></script>
+</body>
+</html>

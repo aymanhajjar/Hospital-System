@@ -1,0 +1,188 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, u, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    padding: 2rem 4rem;
+    box-sizing: border-box;
+    justify-content: space-between;
+    background-color: aqua;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 2rem;
+}
+
+nav {
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header button {
+    border: none;
+    background-color: rgb(68, 171, 255);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.header button:hover {
+    background-color: rgb(85, 195, 255);
+    transition: all 0.3s;
+}
+
+.denied {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+}
+
+.registerForm {
+    width: 90%;
+    background-color: rgb(83, 227, 249);
+    padding: 3rem;
+    margin: 6rem auto;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    width: 40%;
+}
+.registerForm input {
+    border: none;
+    background-color: rgb(185, 240, 255);
+    margin: 0.5rem 0rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+.registerForm input:focus {
+    outline: none;    
+    background-color: rgb(135, 229, 255);
+    transition: all 0.2s;
+}
+
+.position {
+    border: none;
+    background-color: rgb(185, 240, 255);
+    margin: 0.5rem 0rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+.services h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+table {
+    border: 0.1rem solid black;
+    padding: 1rem;
+    margin: auto;
+    background-color: rgb(134, 201, 255);
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+}
+
+th {
+    padding: 1rem 2rem;
+    font-weight: bold;
+}
+
+td {
+    padding: 1rem 2rem;
+}
+
+select {
+    border: none;
+    background-color: rgb(185, 240, 255);
+    margin: 0.5rem 0rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+label {
+    margin-top: 1rem;
+}
+
+.registerForm button {
+    background-color: rgb(8, 202, 232);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.forms {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
