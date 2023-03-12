@@ -76,12 +76,7 @@ if($email_exists > 0) {
         echo json_encode($response);
 
     } 
-    // else {
-    //     $response['status'] = 'password not validated';
-    //     echo json_encode($response);
-    // }
-
-// }
+    
 function generateJWT($id, $user_type) {
     $header = [
         'typ' => 'JWT',

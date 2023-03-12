@@ -139,7 +139,7 @@ function approveService(id) {
           },
         'data': data
       }).then((result) => {
-        console.log(result)
+        alert('approved!')
       }).catch((err) => {
         console.error(err)
       });
@@ -156,6 +156,7 @@ function assignPatient() {
           },
         "data": assign_data
       }).then((result) => {
+        alert('patient assigned!')
       }).catch((err) => {
         console.error(err)
       });
@@ -173,7 +174,7 @@ function assignEmployee() {
           },
         "data": assign_data
       }).then((result) => {
-        console.log(result)
+        alert('employee assigned!')
       }).catch((err) => {
         console.error(err)
       });

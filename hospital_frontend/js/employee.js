@@ -82,7 +82,7 @@ function updateInfo() {
           },
           'data': data
       }).then((result) => {
-        console.log(result)
+        alert('info updated!')
       }).catch((err) => {
         console.error(err)
       });

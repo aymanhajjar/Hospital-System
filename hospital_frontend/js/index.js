@@ -31,7 +31,6 @@ let password_validated = true
 let employee = false
 let work_type = 'employee'
 
-console.log(jwt)
 checkLogin()
 
 function openForm() {
@@ -48,7 +47,6 @@ function checkLogin() {
                 'Authorization': jwt,
               }
           }).then((result) => {
-            console.log('loggedin')
             if(result.data.type == 'employee') {
                 window.location.href="employee.html"
             } else if (result.data.type == 'patient') {
@@ -77,11 +75,9 @@ work_signup.addEventListener('click', () => {
         "method": "get",
         "url": `${url}/get_hospitals.php`
       }).then((result) => {
-        console.log(result)
         hospital.innerHTML = ''
         if(result.data.length > 0) {
             result.data.forEach((h) => {
-                console.log(h.name)
                 hospital.innerHTML += `<option value="${h.name}">${h.name}</option>`
             })
         } else {
@@ -93,7 +89,6 @@ work_signup.addEventListener('click', () => {
 })
 
 patient_signup.addEventListener('click', () => {
-    console.log('clicked')
     work_signup.classList.remove('highlighted')
     patient_signup.classList.add('highlighted')
     choose_work.classList.add('hidden')
@@ -153,7 +148,6 @@ function submitForm() {
             signup_data.append('position', work_position.value)
             signup_data.append('date_joined', date_joined.value)
             signup_data.append('user_type', 'employee')
-            console.log(hospital.value)
             signup_data.append('hospital', hospital.value)
 
         }
@@ -166,17 +160,14 @@ function submitForm() {
             "url": `${url}/signup.php`,
             "data": signup_data
           }).then((result) => {
-            console.log(result)
             if(result.data.status == 'email already exists') {
                 error.innerHTML = 'Email is already in use'
             } else if(result.data.status == 'password not validated') {
                 error.innerHTML = 'Could not validate password!'
             } else if(result.data.status="user added") {
-                console.log(result.data.jwt)
                 localStorage.setItem('jwt', result.data.jwt);
-            } else {
-              console.log('noo')
-            }
+                closeForm();
+            } 
           }).catch((err) => {
             console.error(err)
           });
@@ -273,7 +264,6 @@ function submitLogin() {
         "data": login_data
       }).then((result) => {
         if(result.data.status="logged in") {
-            console.log(result)
             localStorage.setItem('jwt', result.data.jwt);
             if(result.data.type == 'employee') {
                 window.location.href="employee.html"
@@ -305,29 +295,29 @@ signup_password.addEventListener('focusout', () => {
     validation.classList.remove('validationOpened')
     })
 
-// signup_password.addEventListener('keyup', () => {
-//     let lower = document.getElementById("lowercase")
-//     let upper = document.getElementById("uppercase")
-//     let special = document.getElementById("special")
-//     let number = document.getElementById("number")
-//     let length = document.getElementById("length")
+signup_password.addEventListener('keyup', () => {
+    let lower = document.getElementById("lowercase")
+    let upper = document.getElementById("uppercase")
+    let special = document.getElementById("special")
+    let number = document.getElementById("number")
+    let length = document.getElementById("length")
 
-//     var lower_case = /[a-z]/g
-//     var upper_case = /[A-Z]/g
-//     var special_characters = /[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g
-//     var numbers = /[0-9]/g
+    var lower_case = /[a-z]/g
+    var upper_case = /[A-Z]/g
+    var special_characters = /[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g
+    var numbers = /[0-9]/g
 
-//     signup_password.value.match(lower_case) ? lower.classList.replace('error', 'correct') : lower.classList.replace('correct', 'error')
-//     signup_password.value.match(upper_case) ? upper.classList.replace('error', 'correct') : upper.classList.replace('correct', 'error')
-//     signup_password.value.match(special_characters) ? special.classList.replace('error', 'correct') : special.classList.replace('correct', 'error')
-//     signup_password.value.match(numbers) ? number.classList.replace('error', 'correct') : number.classList.replace('correct', 'error')
-//     signup_password.value.length >= 8 ? length.classList.replace('error', 'correct') : length.classList.replace('correct', 'error')
+    signup_password.value.match(lower_case) ? lower.classList.replace('error', 'correct') : lower.classList.replace('correct', 'error')
+    signup_password.value.match(upper_case) ? upper.classList.replace('error', 'correct') : upper.classList.replace('correct', 'error')
+    signup_password.value.match(special_characters) ? special.classList.replace('error', 'correct') : special.classList.replace('correct', 'error')
+    signup_password.value.match(numbers) ? number.classList.replace('error', 'correct') : number.classList.replace('correct', 'error')
+    signup_password.value.length >= 8 ? length.classList.replace('error', 'correct') : length.classList.replace('correct', 'error')
 
-//     if(signup_password.value.match(lower_case) && signup_password.value.match(upper_case)
-//     && signup_password.value.match(special_characters) && signup_password.value.match(numbers)
-//     && signup_password.value.length >= 8) {
-//         password_validated = true
-//     } else {
-//         password_validated =  false
-//     }
-// })
+    if(signup_password.value.match(lower_case) && signup_password.value.match(upper_case)
+    && signup_password.value.match(special_characters) && signup_password.value.match(numbers)
+    && signup_password.value.length >= 8) {
+        password_validated = true
+    } else {
+        password_validated =  false
+    }
+})

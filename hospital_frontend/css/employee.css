@@ -117,6 +117,16 @@ nav {
     transition: all 0.2s;
 }
 
+.registerForm button {
+    background-color: rgb(8, 202, 232);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
 .position {
     border: none;
     background-color: rgb(185, 240, 255);

@@ -138,6 +138,16 @@ nav {
     margin-bottom: 2rem;
 }
 
+.submit {
+    background-color: rgb(8, 202, 232);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
 .registerForm input {
     border: none;
     background-color: rgb(185, 240, 255);
@@ -292,6 +302,7 @@ nav {
     border-radius: 0.5rem;
     transition: all 0.3s;
 }
+
 
 .noaccount {
     text-align: center;
