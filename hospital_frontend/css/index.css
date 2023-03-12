@@ -292,3 +292,14 @@ nav {
     border-radius: 0.5rem;
     transition: all 0.3s;
 }
+
+.noaccount {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .create-one {
+    text-decoration: underline;
+    color: #194de9;
+    cursor: pointer;
+  }

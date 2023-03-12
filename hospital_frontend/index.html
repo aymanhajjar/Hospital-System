@@ -16,14 +16,16 @@
             <a>Careers</a>
             <a>Contact Us</a>
             <a>About Us</a>
-            <button type="button" onclick="openForm()">Login/Sign Up</button>
+            <button  id="login-button" type="button" onclick="openForm()">Login/Sign Up</button>
         </nav>
     </div>
 
     <div id="container" class="container">
         <div class="greeting">
             <h1>Stay Healthy!</h1>
-            <p>Login or sign up to get started</p>
+            <div>
+                <p>Login or sign up to get started</p>
+            </div>
         </div>
     </div>
 
@@ -56,6 +58,8 @@
                 <option value="Doctor">Doctor</option>
                 <option value="Nurse">Nurse</option>
             </select>
+            <select name="hospital" id="hospital" class="position hidden">
+            </select>
             <input id="email-signup" placeholder="Email" name="email">
             <input id="password-signup" type="password" placeholder="Password" name="password">
             <div class="validation" id="validation">
@@ -73,6 +77,19 @@
             <input id="dob" placeholder="Date of Birth (DD/MM/YY)" name="dob">
             <div class="errormessage" id="errormessage"></div>
             <button id="submit-signup" onclick="submitForm()">Submit</button>
+            <span class="noaccount">Already have an account? <span class="create-one" onclick="openLogin()">Log in</span>.</span>
+        </div >
+    </form>
+
+    <form onsubmit="return false">
+        <div class="registerForm" id="loginPopup">
+            <img class="xclose" onclick="closeForm()" src="images/x-close.png">
+            <h2>Login</h2>
+            <input id="email-signup" placeholder="Email" name="email">
+            <input id="password-signup" type="password" placeholder="Password" name="password">
+            <div class="errormessage" id="errormessage"></div>
+            <button id="submit-signup" onclick="submitForm()">Submit</button>
+            <span class="noaccount">Don't have an account? <span class="create-one" onclick="openRegister()">Create one</span>.</span>
         </div >
     </form>
     <script src="js/index.js"></script>

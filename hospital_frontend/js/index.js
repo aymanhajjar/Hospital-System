@@ -1,4 +1,5 @@
 const register_form = document.getElementById('registerPopup')
+const login_form = document.getElementById('loginPopup')
 const container = document.getElementById('container')
 const patient_signup = document.getElementById('patient-signup')
 const work_signup = document.getElementById('work-signup')
@@ -18,29 +19,75 @@ const date_of_birth = document.getElementById('dob')
 const male = document.getElementById('male')
 const female = document.getElementById('female')
 const submit_signup = document.getElementById('submit-signup')
+const hospital = document.getElementById('hospital')
 const error = document.getElementById('errormessage')
+const login_button = document.getElementById('login-button')
 const url = 'http://localhost/hospital/hospital_backend'
+const jwt = localStorage.getItem('jwt')
 let gender = 'male'
-let password_validated = false
-let signup_data = new FormData();
+let password_validated = true
 let employee = false
 let work_type = 'employee'
+
+console.log(jwt)
+checkLogin()
 
 function openForm() {
     register_form.classList.add('openForm')
     container.classList.add('containerBlur')
 }
 
+function checkLogin() {
+    if(jwt != null) {
+        axios({
+            "method": "post",
+            "url": `${url}/check_login.php`,
+            headers: {
+                'Authorization': jwt,
+              }
+          }).then((result) => {
+            console.log('loggedin')
+            if(result.data.type == 'employee') {
+                window.location.href="employee.html"
+            } else if (result.data.type == 'patient') {
+                window.location.href="patient.html"
+            } else if (result.data.type == 'admin') {
+                window.location.href="admin.html"
+            }
+          }).catch((err) => {
+            console.error(err)
+          });
+    }
+}
+
 work_signup.addEventListener('click', () => {
-    console.log('clicked')
     work_signup.classList.add('highlighted')
     patient_signup.classList.remove('highlighted')
     choose_work.classList.remove('hidden')
     employee_code.classList.remove('hidden')
     work_position.classList.remove('hidden')
     ssn.classList.remove('hidden')
+    hospital.classList.remove('hidden')
     date_joined.classList.remove('hidden')
     employee = true
+
+    axios({
+        "method": "get",
+        "url": `${url}/get_hospitals.php`
+      }).then((result) => {
+        console.log(result)
+        hospital.innerHTML = ''
+        if(result.data.length > 0) {
+            result.data.forEach((h) => {
+                console.log(h.name)
+                hospital.innerHTML += `<option value="${h.name}">${h.name}</option>`
+            })
+        } else {
+            hospital.innerHTML = `<option value="no">No hospitals in databse!</option>`
+        }
+      }).catch((err) => {
+        console.error(err)
+      });
 })
 
 patient_signup.addEventListener('click', () => {
@@ -52,6 +99,7 @@ patient_signup.addEventListener('click', () => {
     admin_code.classList.add('hidden')
     work_position.classList.add('hidden')
     ssn.classList.add('hidden')
+    hospital.classList.add('hidden')
     date_joined.classList.add('hidden')
     employee = false
 })
@@ -60,6 +108,7 @@ admin_radio.addEventListener('change', () => {
     employee_code.classList.add('hidden')
     admin_code.classList.remove('hidden')
     work_position.classList.add('hidden')
+    hospital.classList.add('hidden')
     ssn.classList.add('hidden')
     date_joined.classList.add('hidden')
     work_type = 'admin'
@@ -69,13 +118,28 @@ employee_radio.addEventListener('change', () => {
     employee_code.classList.remove('hidden')
     admin_code.classList.add('hidden')
     work_position.classList.remove('hidden')
+    hospital.classList.remove('hidden')
     ssn.classList.remove('hidden')
     date_joined.classList.remove('hidden')
     work_type = 'employee'
 })
 
+male.addEventListener('click', () => {
+    male.classList.add('highlighted')
+    female.classList.remove('highlighted')
+    gender='male'
+})
+
+female.addEventListener('click', () => {
+    female.classList.add('highlighted')
+    male.classList.remove('highlighted')
+    gender='female'
+})
+
 function submitForm() {
+    error.innerHTML = ''
     if(validateForm()) {
+        let signup_data = new FormData();
         signup_data.append('full_name', full_name.value)
         signup_data.append('email', signup_email.value)
         signup_data.append('password', signup_password.value)
@@ -87,6 +151,8 @@ function submitForm() {
             signup_data.append('position', work_position.value)
             signup_data.append('date_joined', date_joined.value)
             signup_data.append('user_type', 'employee')
+            console.log(hospital.value)
+            signup_data.append('hospital', hospital.value)
 
         }
         if(employee && work_type=='admin') {
@@ -96,9 +162,16 @@ function submitForm() {
         axios({
             "method": "post",
             "url": `${url}/signup.php`,
+            "data": signup_data
           }).then((result) => {
             console.log(result)
-            if(result.data.success) {
+            if(result.data.status == 'email already exists') {
+                error.innerHTML = 'Email is already in use'
+            } else if(result.data.status == 'password not validated') {
+                error.innerHTML = 'Could not validate password!'
+            } else if(result.data.status="user added") {
+                console.log(result.data.jwt)
+                localStorage.setItem('jwt', result.data.jwt);
             } else {
               console.log('noo')
             }
@@ -111,7 +184,7 @@ function submitForm() {
 
 function validateForm() {
     var email_regex =  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
-    var dob_regex =  /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{2}$/
+    // var dob_regex =  /^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{2}$/
     error.innerHTML = ''
 
     if(full_name.value.length == 0) {
@@ -135,7 +208,7 @@ function validateForm() {
         confirm_password.classList.add('errorField')
         return false
     }
-    if(!date_of_birth.value.match(dob_regex) || date_of_birth.value.length == 0) {
+    if(date_of_birth.value.length == 0) {
         error.innerHTML = "Please enter a valid date of birth!"
         date_of_birth.classList.add('errorField')
         return false
@@ -152,13 +225,39 @@ function validateForm() {
             ssn.classList.add('errorField')
             return false
         }
-        if(!date_joined.value.match(dob_regex) || date_joined.value.length == 0) {
+        if(date_joined.value.length == 0) {
             error.innerHTML = "Please enter a valid join date!"
             date_joined.classList.add('errorField')
             return false
         }
     }
     return true
+}
+
+function logOut() {
+    localStorage.removeItem('jwt')
+    login_button.innerHTML = 'Log in/Sign up'
+    login_button.onclick = openForm
+}
+
+function closeForm() {
+    register_form.classList.remove('openForm')
+    login_form.classList.remove('openForm')
+    container.classList.remove('containerBlur')
+}
+
+function openLogin() {
+    register_form.classList.remove('openForm');
+    login_form.classList.remove('openForm');
+    login_form.classList.add('openForm')
+    container.classList.add('containerBlur')
+}
+
+function openRegister() {
+register_form.classList.remove('openForm');
+login_form.classList.remove('openForm');
+register_form.classList.add('openForm');
+container.classList.add('containerBlur');
 }
 
 signup_password.addEventListener('focus', () => {
@@ -171,29 +270,29 @@ signup_password.addEventListener('focusout', () => {
     validation.classList.remove('validationOpened')
     })
 
-signup_password.addEventListener('keyup', () => {
-    let lower = document.getElementById("lowercase")
-    let upper = document.getElementById("uppercase")
-    let special = document.getElementById("special")
-    let number = document.getElementById("number")
-    let length = document.getElementById("length")
+// signup_password.addEventListener('keyup', () => {
+//     let lower = document.getElementById("lowercase")
+//     let upper = document.getElementById("uppercase")
+//     let special = document.getElementById("special")
+//     let number = document.getElementById("number")
+//     let length = document.getElementById("length")
 
-    var lower_case = /[a-z]/g
-    var upper_case = /[A-Z]/g
-    var special_characters = /[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g
-    var numbers = /[0-9]/g
+//     var lower_case = /[a-z]/g
+//     var upper_case = /[A-Z]/g
+//     var special_characters = /[\!\@\#\$\%\^\&\*\)\(\+\=\.\<\>\{\}\[\]\:\;\'\"\|\~\`\_\-]/g
+//     var numbers = /[0-9]/g
 
-    signup_password.value.match(lower_case) ? lower.classList.replace('error', 'correct') : lower.classList.replace('correct', 'error')
-    signup_password.value.match(upper_case) ? upper.classList.replace('error', 'correct') : upper.classList.replace('correct', 'error')
-    signup_password.value.match(special_characters) ? special.classList.replace('error', 'correct') : special.classList.replace('correct', 'error')
-    signup_password.value.match(numbers) ? number.classList.replace('error', 'correct') : number.classList.replace('correct', 'error')
-    signup_password.value.length >= 8 ? length.classList.replace('error', 'correct') : length.classList.replace('correct', 'error')
+//     signup_password.value.match(lower_case) ? lower.classList.replace('error', 'correct') : lower.classList.replace('correct', 'error')
+//     signup_password.value.match(upper_case) ? upper.classList.replace('error', 'correct') : upper.classList.replace('correct', 'error')
+//     signup_password.value.match(special_characters) ? special.classList.replace('error', 'correct') : special.classList.replace('correct', 'error')
+//     signup_password.value.match(numbers) ? number.classList.replace('error', 'correct') : number.classList.replace('correct', 'error')
+//     signup_password.value.length >= 8 ? length.classList.replace('error', 'correct') : length.classList.replace('correct', 'error')
 
-    if(signup_password.value.match(lower_case) && signup_password.value.match(upper_case)
-    && signup_password.value.match(special_characters) && signup_password.value.match(numbers)
-    && signup_password.value.length >= 8) {
-        password_validated = true
-    } else {
-        password_validated =  false
-    }
-})
+//     if(signup_password.value.match(lower_case) && signup_password.value.match(upper_case)
+//     && signup_password.value.match(special_characters) && signup_password.value.match(numbers)
+//     && signup_password.value.length >= 8) {
+//         password_validated = true
+//     } else {
+//         password_validated =  false
+//     }
+// })
